@@ -1,0 +1,6 @@
+/*
+  This stylesheet is needed so that pandoc can be tricked.
+  This is because the pandoc output is styled by default.
+  To prevent this I pass this empty stylesheet to pandoc.
+  Styling for highlighting is excluded from this.
+*/
