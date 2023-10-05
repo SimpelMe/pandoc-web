@@ -2,10 +2,18 @@
   if ('post' === strtolower($_SERVER['REQUEST_METHOD'])) {
     include 'localConfig.php';
 
+    // prepare for debug
+    $debug = false;
+    if (file_exists('DEBUG')) {
+      $debug = true;
+    }
+
     // DEBUG: output all set variables from $_POST
-    // var_dump($_POST);
-    // echo '==================================================
-    // ';
+    if ($debug) {
+      var_dump($_POST);
+      echo '==================================================
+      ';
+    }
 
     // give input file a name that shouldn't collide with other users
     $file = 'input/input' . microtime(true) . '.txt';
@@ -73,14 +81,18 @@
     $command .= ' ' . $file;
 
     // DEBUG: output error messages from cmd line
-    // $command .= '  2>&1';
+    if ($debug) {
+      $command .= '  2>&1';
+    }
 
     // DEBUG: output the whole command line
-    // echo $command;
-    // echo '
-    // ';
-    // echo '==================================================
-    // ';
+    if ($debug) {
+      echo $command;
+      echo '
+      ';
+      echo '==================================================
+      ';
+    }
 
     // put the path to pandoc temporarily to the servers path
     // configure the path in localConfig.php
