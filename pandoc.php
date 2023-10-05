@@ -1,20 +1,31 @@
 <?php
   if ('post' === strtolower($_SERVER['REQUEST_METHOD'])) {
+    include 'localConfig.php';
+
+    // DEBUG: output all set variables from $_POST
     // var_dump($_POST);
     // echo '==================================================
     // ';
+
+    // give input file a name that shouldn't collide with other users
     $file = 'input/input' . microtime(true) . '.txt';
+    // always use a file instead a string from stdin (because of security and special characters like ')
     file_put_contents($file, $_POST['input']);
-    // Run pandoc in a sandbox, limiting IO operations in readers and writers to reading the files specified on the command line.
+
+    // run pandoc in a sandbox, limiting IO operations in readers and writers to reading the files specified on the command line.
     $command = 'pandoc --sandbox';
-    // return no styling
+    // avoid DOS attacks - see https://pandoc.org/chunkedhtml-demo/19-a-note-on-security.html #5
+    $command .= ' +RTS -M512M -RTS';
+    // return no styling as this styling is effecting my preview too
     $command .= ' --css nostyle.css';
-    // Option 'preview' should be rendered in the gui so use HTML
+
     // Checkboxes
+    // produce a standalone HTML file with no external dependencies. This option works only with HTML output formats.
     if ($_POST['standalone'] == "true") {$command .= ' --standalone';}
     if ($_POST['tableOfContents'] == "true") {$command .= ' --table-of-contents=true';}
     if ($_POST['numberSections'] == "true") {$command .= ' --number-sections';}
     if ($_POST['citeproc'] == "true") {$command .= ' --citeproc';}
+
     // Selects
     // text wrapping
     $command .= ' --wrap=' . $_POST['wrap'];
@@ -46,24 +57,39 @@
           $command  .= ' --webtex';
           break;
     }
-    // Produce a standalone HTML file with no external dependencies. This option works only with HTML output formats.
-    // Never return styling as the preview would be often broken
+
     $command .= ' --embed-resources=true';
+    // Input format
     $command .= ' --from=' . $_POST['from'];
+    // Output format
+    // option 'preview' should be rendered in the gui so use HTML
     if ($_POST['to'] == "preview") {
       $command  .= ' --to=html5';
     } else {
       $command .= ' --to=' . $_POST['to'];
     }
-    // Always use a file instead a string from stdin (because of security and special characters like ')
+
+    // always use a file instead a string from stdin (because of security and special characters like ')
     $command .= ' ' . $file;
+
+    // DEBUG: output error messages from cmd line
+    // $command .= '  2>&1';
+
+    // DEBUG: output the whole command line
     // echo $command;
     // echo '
     // ';
     // echo '==================================================
     // ';
+
+    // put the path to pandoc temporarily to the servers path
+    // configure the path in localConfig.php
+    putenv("PATH=" . PATH);
+    // execute pandoc
     $return = shell_exec($command);
+    // delete input file as it is not needed anymore
     unlink($file);
+    // put the output string back to the client
     echo "$return";
   }
 ?>
