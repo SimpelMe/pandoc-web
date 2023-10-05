@@ -1,4 +1,6 @@
 localSettingsHeader.php
+localConfig.php
+DEBUG
 input/*
 output/*
 
