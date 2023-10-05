@@ -139,7 +139,8 @@ summary {
 input[type=checkbox] {
   margin-top: 0;
   margin-right: 1vmin;
-  transform: scale(1.6);
+  /* make the checkbox a bit bigger and move a bit down */
+  transform: scale(1.5) translateY(2px);
 }
 
 input[type=checkbox]:focus {
