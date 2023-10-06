@@ -145,7 +145,6 @@ function toggleToc() {
 }
 
 function setMainButtonsAppearance() {
-  console.log('main buttons');
   const convertButton = document.getElementById('convert');
   const copyButton = document.getElementById('copy');
   const from  = document.getElementById('from').value;

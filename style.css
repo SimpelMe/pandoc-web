@@ -240,8 +240,6 @@ p.label {
   margin-top: var(--default-top-padding);
   border: 1px solid white;
   outline: 1px solid white;
-  /* 10vmin(margin body + col-gap); 1rem(padding textarea) */
-  width: calc((100vw - 8vmin) / 2 - 3vmin);
   min-height: 44vh;
   /* Place on top of each other */
   grid-area: 1 / 1 / 2 / 2;
@@ -306,14 +304,9 @@ div.download {
 .two-column {
   padding-top: var(--default-top-padding);
   display: grid;
-  grid-template-columns: calc((100vw - 8vmin) / 2 - 1vmin) calc((100vw - 8vmin) / 2 - 1vmin);
-  column-gap: 2vmin;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 3vmin;
   row-gap: 2vmin;
-}
-
-.right {
-  /* 8vmin(margin body) / - 1vmin(half col gap) */
-  width: calc((100vw - 8vmin) / 2 - 1vmin);
 }
 
 .flex-space-between {
