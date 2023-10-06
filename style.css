@@ -1,40 +1,48 @@
 :root {
   --default-top-padding: 1.5em;
+  --default-body-bottom-margin: 2vmin;
 }
 
 body {
-  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  height: 100%
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  height: 100%
+}
+
+.max-height {
+  display: flex;
+  flex-direction: column;
+  height: 100%
+}
+
+.max-height > .two-column {
+  flex-grow: 1;
+  flex-basis: auto;
+  height: 100%
+}
+
+.left, .right {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  height: calc(100vh - 3vmin); /* abzüglich margin-top */
   font-family: helvetica, Arial, sans-serif;
   font-size: 2vmin;
   background-color: #555;
   color: white;
-  margin: 3vmin 4vmin 2vmin 4vmin;
-}
-
-/* iPad portait */
-@media (max-width: 768px) {
-  body {
-    font-size: 3vmin;
-  }
-
-  button, input {
-    padding-top: 2vmin;
-  }
-}
-
-/* iPhone landscape only */
-@media (max-width: 568px) {
-  body {
-    font-size: 4vmin;
-  }
-}
-
-/* iPhone portait only */
-@media (max-width: 320px) {
-  body {
-    font-size: 4vmin;
-  }
-
+  /* margin-bottom errechnet sich hier zu 0
+  dieses margin muss von den untersten Elementen gesetzt werden,
+  da sie bis ganz unten gehen sollen */
+  margin: 3vmin 4vmin calc(var(--default-body-bottom-margin) - var(--default-body-bottom-margin)) 4vmin;
 }
 
 *:focus {
@@ -205,6 +213,7 @@ p.label {
 .label-w-select {
   display: flex;
   justify-content: start;
+  flex-direction: row;
 }
 
 .label-w-select select {
@@ -214,6 +223,10 @@ p.label {
 .grow-wrap {
   /* easy way to plop the elements on top of each other and have them both sized based on the tallest one's height */
   display: grid;
+  flex-grow: 1;
+  /* ersetzt den margin-bottom vom body
+  da dieses Element bis zum Ende gehen soll */
+  margin-bottom: var(--default-body-bottom-margin);
 }
 .grow-wrap::after {
   /* Note the weird space! Needed to preventy jumpy behavior */
@@ -240,7 +253,7 @@ p.label {
   margin-top: var(--default-top-padding);
   border: 1px solid white;
   outline: 1px solid white;
-  min-height: 44vh;
+  /* min-height: 44vh; */
   /* Place on top of each other */
   grid-area: 1 / 1 / 2 / 2;
 }
@@ -304,7 +317,9 @@ div.download {
 .two-column {
   padding-top: var(--default-top-padding);
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* exactly the same size
+  instead of "grid-template-columns: 1fr 1fr;" */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: 3vmin;
   row-gap: 2vmin;
 }
@@ -317,10 +332,13 @@ div.download {
 
 #output {
   margin-top: var(--default-top-padding);
+  /* ersetzt den margin-bottom vom body
+  da dieses Element bis zum Ende gehen soll */
+  margin-bottom: var(--default-body-bottom-margin);
   padding: 0.5rem;
   border: 1px solid white;
   outline: 1px solid white;
-  min-height: 44vh;
+  flex-grow: 1;
 }
 
 pre {
@@ -332,4 +350,46 @@ pre {
 
 th {
   text-align: left;
+}
+
+/* from here two columns side by side are not working */
+@media (max-width: 850px) {
+  body {
+    font-size: 4vmin;
+  }
+  .two-column {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* iPad portait */
+@media (max-width: 768px) {
+  body {
+    /* font-size: 3vmin; */
+  }
+
+  button, input {
+    padding-top: 2vmin;
+  }
+}
+
+/* iPhone landscape only */
+@media (max-width: 568px) {
+  body {
+    /* font-size: 4vmin; */
+  }
+  .label-w-select {
+    flex-direction: column;
+  }
+  .grow-wrap {
+    /* grid-template-columns: 92vmin; */
+  }
+}
+
+/* iPhone portait only */
+@media (max-width: 320px) {
+  body {
+    /* font-size: 4vmin; */
+  }
+
 }

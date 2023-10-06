@@ -202,28 +202,30 @@
         </div>
       </div>
     </details>
-    <div class="two-column">
-      <div class="left">
-        <div class="flex-space-between">
-          <label for="input" id="label-inputfield" class="labelLikeHeading">Input field</label>
-          <button type="button" disabled id="convert" name="convert" title="Convert input.
+    <div class="max-height">
+      <div class="two-column">
+        <div class="left">
+          <div class="flex-space-between">
+            <label for="input" id="label-inputfield" class="labelLikeHeading">Input field</label>
+            <button type="button" disabled id="convert" name="convert" title="Convert input.
 You can use this shortcut:
 OSX: [ Ctrl ] + [ Opt ] + [ p ]
 WIN: [ Alt ] + [ p ]" accesskey="p" onclick="pandoc(true)">Convert [p]</button>
+          </div>
+          <div id="inputDub" class="grow-wrap">
+            <textarea id="input" name="input"></textarea>
+          </div>
         </div>
-        <div id="inputDub" class="grow-wrap">
-          <textarea id="input" name="input"></textarea>
-        </div>
-      </div>
-      <div class="right">
-        <div class="flex-space-between">
-          <p id="label-outputfield" class="label">Output field</p>
-          <button type="button" disabled id="copy" name="copy" title="Copy output text.
+        <div class="right">
+          <div class="flex-space-between">
+            <p id="label-outputfield" class="label">Output field</p>
+            <button type="button" disabled id="copy" name="copy" title="Copy output text.
 You can use this shortcut:
 OSX: [ Ctrl ] + [ Opt ] + [ c ]
 WIN: [ Alt ] + [ c ]" accesskey="c" onclick="copyOutput()">Copy output field [c]</button>
+          </div>
+          <div id="output"></div>
         </div>
-        <div id="output"></div>
       </div>
     </div>
   </main>
