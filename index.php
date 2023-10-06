@@ -206,13 +206,13 @@
       <div class="two-column">
         <div class="left">
           <div class="flex-space-between">
-            <label for="input" id="label-inputfield" class="labelLikeHeading">Input field</label>
+            <p id="label-inputfield" class="label">Input field</p>
             <button type="button" disabled id="convert" name="convert" title="Convert input.
 You can use this shortcut:
 OSX: [ Ctrl ] + [ Opt ] + [ p ]
 WIN: [ Alt ] + [ p ]" accesskey="p" onclick="pandoc(true)">Convert [p]</button>
           </div>
-          <div id="input" role="textbox" aria-multiline="true" contenteditable="true"></div>
+          <div id="input" role="textbox" aria-multiline="true" aria-labelledby="label-inputfield" contenteditable="true"></div>
         </div>
         <div class="right">
           <div class="flex-space-between">
@@ -222,7 +222,7 @@ You can use this shortcut:
 OSX: [ Ctrl ] + [ Opt ] + [ c ]
 WIN: [ Alt ] + [ c ]" accesskey="c" onclick="copyOutput()">Copy output field [c]</button>
           </div>
-          <div id="output"></div>
+          <div id="output" aria-labelledby="label-outputfield"></div>
         </div>
       </div>
     </div>
