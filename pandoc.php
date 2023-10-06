@@ -8,18 +8,24 @@
       $debug = true;
     }
 
-    // DEBUG: output all set variables from $_POST
+    // DEBUG: output all set variables from $_POST and $_FILES
     if ($debug) {
       var_dump($_POST);
+      var_dump($_FILES);
       echo '==================================================
       ';
     }
 
     // give input file a name that shouldn't collide with other users
     $timestamp = microtime(true);
-    $inputFile = 'input/input' . $timestamp . '.txt';
-    // always use a file instead a string from stdin (because of security and special characters like ')
-    file_put_contents($inputFile, $_POST['input']);
+    if ($_POST['useInputFile'] == "true") {
+      $inputFile = 'input/input' . $timestamp . '.' . $_POST['inputFileExtension'];
+      move_uploaded_file($_FILES['inputFile']['tmp_name'], $inputFile);
+    } else {
+      $inputFile = 'input/input' . $timestamp . '.txt';
+      // always use a file instead a string from stdin (because of security and special characters like ')
+      file_put_contents($inputFile, $_POST['input']);
+    }
 
     // run pandoc in a sandbox, limiting IO operations in readers and writers to reading the files specified on the command line.
     $command = 'pandoc --sandbox';

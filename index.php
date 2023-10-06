@@ -17,8 +17,8 @@
   </header>
 
   <main>
-    <dialog>
-      <p id="errorMessageText">Error message here</p>
+    <dialog id="dialog">
+      <p id="dialogText">Message here</p>
       <button onclick="dialog.close()">Close</button>
     </dialog>
     <div class="first-in-main two-column">
@@ -137,7 +137,7 @@
         </select>
       </div>
     </div>
-    <details open>
+    <details id="options">
       <summary>Options</summary>
       <div id="details">
         <div id="checkboxes">
@@ -186,18 +186,17 @@
         <div id="files" class="two-column">
           <div class="left">
             <label for="cb-inputfile" title="Use a file as input">
-              <input type="checkbox" id="cb-inputfile" name="cb-inputfile" onchange="checkInputFile()">Use file as input</label>
+              <input type="checkbox" id="cb-inputfile" name="cb-inputfile" onchange="checkInputFile(),pandoc()">Use file as input</label>
             <form id="inputfile-form" class="file" action="/input" method="post" enctype="multipart/form-data">
               <label for="inputfile">File
                 <input id="inputfile" name="file" type="file" /></label>
-              <button id="upload-button">Upload</button>
             </form>
           </div>
           <div class="right">
             <label for="cb-outputfile" title="Use a file for output">
-              <input type="checkbox" id="cb-outputfile" name="cb-outputfile" onchange="checkOutputFile()">Use file for output</label>
+              <input type="checkbox" id="cb-outputfile" name="cb-outputfile" onchange="checkOutputFile(),pandoc()">Use file for output</label>
             <div class="download">
-              <a download="test.txt" href='#' id="download">Download the output file</a>
+              <a id="download"></a>
             </div>
           </div>
         </div>
@@ -206,11 +205,11 @@
     <div class="two-column">
       <div class="left">
         <div class="flex-space-between">
-          <label for="input" class="labelLikeHeading">Input field</label>
+          <label for="input" id="label-inputfield" class="labelLikeHeading">Input field</label>
           <button type="button" id="convert" name="convert" title="Convert input.
 You can use this shortcut:
 OSX: [ Ctrl ] + [ Opt ] + [ p ]
-WIN: [ Alt ] + [ p ]" accesskey="p" onclick="pandoc(true)">Convert input [p]</button>
+WIN: [ Alt ] + [ p ]" accesskey="p" onclick="pandoc(true)">Convert [p]</button>
         </div>
         <div id="inputDub" class="grow-wrap">
           <textarea id="input" name="input"></textarea>
@@ -218,7 +217,7 @@ WIN: [ Alt ] + [ p ]" accesskey="p" onclick="pandoc(true)">Convert input [p]</bu
       </div>
       <div class="right">
         <div class="flex-space-between">
-          <p class="label">Output field</p>
+          <p id="label-outputfield" class="label">Output field</p>
           <button type="button" id="copy" name="copy" title="Copy output text.
 You can use this shortcut:
 OSX: [ Ctrl ] + [ Opt ] + [ c ]
@@ -234,10 +233,9 @@ WIN: [ Alt ] + [ c ]" accesskey="c" onclick="copyOutput()">Copy output field [c]
     inputField.addEventListener("input", adaptTextareaSize());
     inputField.addEventListener("change", adaptTextareaSize());
     // Error messages dialog
-    const dialog = document.querySelector("dialog");
-    const closeButton = document.querySelector("dialog button");
-    // "Close" button closes the dialog
-    closeButton.addEventListener("click", () => {
+    const dialog = document.getElementById("dialog");
+    const closeButtonDialog = document.querySelector("dialog button");
+    closeButtonDialog.addEventListener("click", () => {
       dialog.close();
     });
     // disable form for input file

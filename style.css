@@ -44,15 +44,40 @@ body {
 
 dialog {
   color: white;
+}
+
+dialog:focus {
+  outline: none;
+}
+
+dialog::backdrop {
+  background: rgba(85, 85, 85, 0.80);
+}
+
+.error-dialog {
+  color: white;
   background-color: #AE0000;
+}
+
+.busy-dialog {
+  color: white;
+  background-color: #006900;
 }
 
 dialog p {
   margin-top: 0;
 }
 
+dialog.busy-dialog p {
+  margin-bottom: 0;
+}
+
 dialog button {
   float: right;
+}
+
+dialog.busy-dialog button {
+  display: none;
 }
 
 a {
@@ -169,6 +194,7 @@ p.label {
   margin:0;
   font-size: 1.2em;
   display: inline;
+  pointer-events: none;
 }
 
 /* select shall fill the rest of the column right from label */
@@ -241,10 +267,20 @@ input[type="file"] {
   background-color: inherit;
 }
 
-button:disabled, input:disabled {
+button:disabled, input:disabled, textarea:disabled {
   background-color: inherit;
   color: #AAAAAA;
-  border-color: inherit;
+  border-color: #AAAAAA;
+  outline-color: #AAAAAA;
+  pointer-events: none;
+}
+
+div.disabled, p.disabled, label.disabled, #output.disabled {
+  background-color: inherit;
+  color: #AAAAAA;
+  border-color: #AAAAAA;
+  outline-color: #AAAAAA;
+  pointer-events: none;
 }
 
 label:has(> input:disabled) {
