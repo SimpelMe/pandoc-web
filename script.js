@@ -117,6 +117,7 @@ function pandoc(alert) {
           document.getElementById("output").appendChild(node);
           node.innerText = content;
         }
+        setMainButtonsAppearance();
         // close the busy dialog
         dialog.close()
       }
@@ -143,11 +144,49 @@ function toggleToc() {
   }
 }
 
+function setMainButtonsAppearance() {
+  console.log('main buttons');
+  const convertButton = document.getElementById('convert');
+  const copyButton = document.getElementById('copy');
+  const from  = document.getElementById('from').value;
+  const useInputFile  = document.getElementById('cb-inputfile').checked;
+  let inputFile = false;
+  if (useInputFile) {
+    inputFile = document.getElementById('inputfile').files[0];
+  }
+  var input  = document.getElementById('input').value;
+  const output = document.getElementById('output');
+
+  // convert button setting
+  if (from === "none") {
+    convertButton.setAttribute('disabled', 'disabled');
+  } else if (!inputFile && useInputFile) {
+    convertButton.setAttribute('disabled', 'disabled');
+  } else if (isEmpty(input) && !useInputFile) {
+    convertButton.setAttribute('disabled', 'disabled');
+    output.innerText = "";
+  } else {
+    convertButton.removeAttribute('disabled');
+  }
+
+  const outputText = document.getElementById('output').innerText;
+
+  // copy button setting
+  if (typeof outputText === 'undefined') {
+    copyButton.setAttribute('disabled', 'disabled')
+  } else if (isEmpty(outputText)) {
+    copyButton.setAttribute('disabled', 'disabled')
+  } else {
+    copyButton.removeAttribute('disabled')
+  }
+}
+
 function checkInputFile() {
   if (document.getElementById('cb-inputfile').checked === true) {
     document.getElementById('inputfile').removeAttribute("disabled");
     document.getElementById('input').setAttribute("disabled", "disabled");
     document.getElementById('label-inputfield').classList.add("disabled");
+    document.getElementById('output').innerText = "";
   } else {
     document.getElementById('inputfile').setAttribute("disabled", "disabled");
     document.getElementById('input').removeAttribute("disabled");

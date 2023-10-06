@@ -11,7 +11,7 @@
   </script>
 </head>
 
-<body>
+<body onload="setMainButtonsAppearance()" onchange="setMainButtonsAppearance()" onclick="setMainButtonsAppearance()" onkeyup="setMainButtonsAppearance()">
   <header>
     <?php include dirname($_SERVER['DOCUMENT_ROOT']) . "/simpel.cc/php/header.php"; ?>
   </header>
@@ -206,7 +206,7 @@
       <div class="left">
         <div class="flex-space-between">
           <label for="input" id="label-inputfield" class="labelLikeHeading">Input field</label>
-          <button type="button" id="convert" name="convert" title="Convert input.
+          <button type="button" disabled id="convert" name="convert" title="Convert input.
 You can use this shortcut:
 OSX: [ Ctrl ] + [ Opt ] + [ p ]
 WIN: [ Alt ] + [ p ]" accesskey="p" onclick="pandoc(true)">Convert [p]</button>
@@ -218,7 +218,7 @@ WIN: [ Alt ] + [ p ]" accesskey="p" onclick="pandoc(true)">Convert [p]</button>
       <div class="right">
         <div class="flex-space-between">
           <p id="label-outputfield" class="label">Output field</p>
-          <button type="button" id="copy" name="copy" title="Copy output text.
+          <button type="button" disabled id="copy" name="copy" title="Copy output text.
 You can use this shortcut:
 OSX: [ Ctrl ] + [ Opt ] + [ c ]
 WIN: [ Alt ] + [ c ]" accesskey="c" onclick="copyOutput()">Copy output field [c]</button>
