@@ -16,9 +16,10 @@
     }
 
     // give input file a name that shouldn't collide with other users
-    $file = 'input/input' . microtime(true) . '.txt';
+    $timestamp = microtime(true);
+    $inputFile = 'input/input' . $timestamp . '.txt';
     // always use a file instead a string from stdin (because of security and special characters like ')
-    file_put_contents($file, $_POST['input']);
+    file_put_contents($inputFile, $_POST['input']);
 
     // run pandoc in a sandbox, limiting IO operations in readers and writers to reading the files specified on the command line.
     $command = 'pandoc --sandbox';
@@ -73,12 +74,21 @@
     // option 'preview' should be rendered in the gui so use HTML
     if ($_POST['to'] == "preview") {
       $command  .= ' --to=html5';
+    // pdf - see https://pandoc.org/MANUAL#context
+    // you need to have context installed - see https://wiki.contextgarden.net/Installation
+    } elseif ($_POST['to'] == "pdf") {
+      $command  .= ' --to=context+tagging -V pdfa=3a';
+      // pdf is only working in standalone mode
+      if ($_POST['standalone'] == "false") {$command .= ' --standalone';}
     } else {
       $command .= ' --to=' . $_POST['to'];
     }
-
+    // set output file if asked for
+    if ($_POST['useOutputFile'] == "true") {
+      $command .= ' -o output/output' . $timestamp . '.' . $_POST['outputFileExtension'];
+    }
     // always use a file instead a string from stdin (because of security and special characters like ')
-    $command .= ' ' . $file;
+    $command .= ' ' . $inputFile;
 
     // DEBUG: output error messages from cmd line
     if ($debug) {
@@ -100,8 +110,18 @@
     // execute pandoc
     $return = shell_exec($command);
     // delete input file as it is not needed anymore
-    unlink($file);
-    // put the output string back to the client
-    echo "$return";
+    if (file_exists($inputFile)) {
+      unlink($inputFile);
+    }
+
+    // return result
+    if ($_POST['useOutputFile'] == "false") {
+      // put the output string back to the client
+      echo "$return";
+    } else {
+      // return the file binary
+      readfile('output/output' . $timestamp . '.' . $_POST['outputFileExtension']);
+      unlink('output/output' . $timestamp . '.' . $_POST['outputFileExtension']);
+    }
   }
 ?>

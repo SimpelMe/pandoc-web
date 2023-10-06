@@ -57,11 +57,15 @@ dialog button {
 
 a {
   color: #ffffff;
+}
+
+header a {
   text-decoration: none;
 }
 
-#output a {
-  text-decoration: underline;
+/* kind of disabled link - text-decoration will be none automatically */
+a:not([href]) {
+  color: #AAAAAA;
 }
 
 header {
@@ -237,8 +241,23 @@ input[type="file"] {
   background-color: inherit;
 }
 
+button:disabled, input:disabled {
+  background-color: inherit;
+  color: #AAAAAA;
+  border-color: inherit;
+}
+
+label:has(> input:disabled) {
+  color: #AAAAAA;
+}
+
 form.file {
   padding-top: var(--default-top-padding);
+}
+
+div.download {
+  /* + 5px to align with the button in the left segment */
+  padding-top: calc(var(--default-top-padding) + 5px);
 }
 
 #example {

@@ -76,7 +76,7 @@
           <option value="preview">Preview</option>
           <option value="jats">alias for jats_archiving</option>
           <option value="asciidoc">AsciiDoc (modern) as interpreted by AsciiDoctor</option>
-          <option value="asciidoc_legacy.">AsciiDoc as interpreted by asciidoc-py</option>
+          <option value="asciidoc_legacy">AsciiDoc as interpreted by asciidoc-py</option>
           <option value="biblatex">BibLaTeX bibliography</option>
           <option value="bibtex">BibTeX bibliography</option>
           <option value="context">ConTeXt</option>
@@ -183,17 +183,24 @@
           </label>
         </div>
         <input type="button" id="example" name="example" value="Use markdown example" onclick="useExample()">
-        <!-- <div id="files" class="two-column">
+        <div id="files" class="two-column">
           <div class="left">
             <label for="cb-inputfile" title="Use a file as input">
-              <input type="checkbox" id="cb-inputfile" name="cb-inputfile" onchange="useInputFile()">Use file as input</label>
-            <form class="file" action="/input" method="post" enctype="multipart/form-data">
-              <label for="inputfile">File</label>
-              <input id="inputfile" name="file" type="file" />
-              <button>Upload</button>
+              <input type="checkbox" id="cb-inputfile" name="cb-inputfile" onchange="checkInputFile()">Use file as input</label>
+            <form id="inputfile-form" class="file" action="/input" method="post" enctype="multipart/form-data">
+              <label for="inputfile">File
+                <input id="inputfile" name="file" type="file" /></label>
+              <button id="upload-button">Upload</button>
             </form>
           </div>
-        </div> -->
+          <div class="right">
+            <label for="cb-outputfile" title="Use a file for output">
+              <input type="checkbox" id="cb-outputfile" name="cb-outputfile" onchange="checkOutputFile()">Use file for output</label>
+            <div class="download">
+              <a download="test.txt" href='#' id="download">Download the output file</a>
+            </div>
+          </div>
+        </div>
       </div>
     </details>
     <div class="two-column">
@@ -233,6 +240,9 @@ WIN: [ Alt ] + [ c ]" accesskey="c" onclick="copyOutput()">Copy output field [c]
     closeButton.addEventListener("click", () => {
       dialog.close();
     });
+    // disable form for input file
+    checkInputFile();
+    checkOutputFile();
   </script>
 </body>
 
