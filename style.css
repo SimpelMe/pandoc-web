@@ -54,6 +54,10 @@ dialog::backdrop {
   background: rgba(85, 85, 85, 0.80);
 }
 
+dialog.busy-dialog::backdrop {
+  background: inherit;
+}
+
 .error-dialog {
   color: white;
   background-color: #AE0000;
