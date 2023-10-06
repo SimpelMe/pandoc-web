@@ -171,15 +171,15 @@
               <option value="zenburn">Zenburn</option>
             </select>
           </label>
-          <label for="html-math-method">Math render HTML
+          <label for="html-math-method">Math render
             <select id="html-math-method" title="How math is rendered" onchange="pandoc()">
-            <option id="math-plain" value="plain">Plain</option>
-            <option id="math-gladtex" value="gladtex">GladTeX</option>
-            <option id="math-katex" value="katex">KaTeX</option>
-            <option id="math-mathjax" value="mathjax">MathJax</option>
-            <option id="math-mathml" value="mathml">MathML</option>
-            <option id="math-webtex" value="webtex">WebTeX</option>
-          </select>
+              <option id="math-plain" value="plain">Plain</option>
+              <option id="math-gladtex" value="gladtex">GladTeX</option>
+              <option id="math-katex" value="katex">KaTeX</option>
+              <option id="math-mathjax" value="mathjax">MathJax</option>
+              <option id="math-mathml" value="mathml">MathML</option>
+              <option id="math-webtex" value="webtex">WebTeX</option>
+            </select>
           </label>
         </div>
         <input type="button" id="example" name="example" value="Use markdown example" onclick="useExample()">
@@ -212,9 +212,7 @@ You can use this shortcut:
 OSX: [ Ctrl ] + [ Opt ] + [ p ]
 WIN: [ Alt ] + [ p ]" accesskey="p" onclick="pandoc(true)">Convert [p]</button>
           </div>
-          <div id="inputDub" class="grow-wrap">
-            <textarea id="input" name="input"></textarea>
-          </div>
+          <div id="input" role="textbox" aria-multiline="true" contenteditable="true"></div>
         </div>
         <div class="right">
           <div class="flex-space-between">
@@ -230,10 +228,6 @@ WIN: [ Alt ] + [ c ]" accesskey="c" onclick="copyOutput()">Copy output field [c]
     </div>
   </main>
   <script>
-    // enable auto height on input textarea
-    var inputField = document.getElementById("input");
-    inputField.addEventListener("input", adaptTextareaSize());
-    inputField.addEventListener("change", adaptTextareaSize());
     // Error messages dialog
     const dialog = document.getElementById("dialog");
     const closeButtonDialog = document.querySelector("dialog button");

@@ -52,7 +52,7 @@ function pandoc(alert) {
     return;
   }
   var to  = document.getElementById('to').value;
-  var input  = document.getElementById('input').value;
+  var input  = document.getElementById('input').innerText;
   if (isEmpty(input) && !useInputFile) {
     if (alert === true) {
       pushDialog("Error: Nothing to convert.\n\nYou must either write something into the 'Input field' or select a file as input in the 'Options'.", "error");
@@ -153,7 +153,7 @@ function setMainButtonsAppearance() {
   if (useInputFile) {
     inputFile = document.getElementById('inputfile').files[0];
   }
-  var input  = document.getElementById('input').value;
+  var input  = document.getElementById('input').innerText;
   const output = document.getElementById('output');
 
   // convert button setting
@@ -183,12 +183,12 @@ function setMainButtonsAppearance() {
 function checkInputFile() {
   if (document.getElementById('cb-inputfile').checked === true) {
     document.getElementById('inputfile').removeAttribute("disabled");
-    document.getElementById('input').setAttribute("disabled", "disabled");
+    document.getElementById('input').classList.add("disabled");
     document.getElementById('label-inputfield').classList.add("disabled");
     document.getElementById('output').innerText = "";
   } else {
     document.getElementById('inputfile').setAttribute("disabled", "disabled");
-    document.getElementById('input').removeAttribute("disabled");
+    document.getElementById('input').classList.remove("disabled");
     document.getElementById('label-inputfield').classList.remove("disabled");
   }
 }
@@ -229,18 +229,6 @@ async function copyOutput() {
   return navigator.clipboard.write([clipboardItem]);
 }
 
-// adapt height of textarea responding to the contents
-// it's only working with the corresponding css
-function adaptTextareaSize() {
-  const growers = document.querySelectorAll(".grow-wrap");
-  growers.forEach((grower) => {
-    const textarea = grower.querySelector("textarea");
-    textarea.addEventListener("input", () => {
-      grower.dataset.replicatedValue = textarea.value;
-    });
-  });
-}
-
 function pushDialog(text, type, elementById) {
   var dialogText = document.getElementById('dialogText');
   dialogText.innerText = text;
@@ -265,13 +253,10 @@ function isEmpty(string) {
 
 function useExample() {
   var inputField = document.getElementById("input");
-  inputField.value = example;
+  inputField.innerText = example;
   document.getElementById('from').value = 'markdown';
   document.getElementById('cb-inputfile').checked = false;
   checkInputFile();
-  // fire onInput event to adapt height of textarea
-  var eventInput = new Event('input', { bubbles: true });
-  inputField.dispatchEvent(eventInput);
   // execute pandoc to show example on preview
   pandoc();
 }

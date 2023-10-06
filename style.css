@@ -220,45 +220,7 @@ p.label {
   flex-grow: 1;
 }
 
-.grow-wrap {
-  /* easy way to plop the elements on top of each other and have them both sized based on the tallest one's height */
-  display: grid;
-  flex-grow: 1;
-  /* ersetzt den margin-bottom vom body
-  da dieses Element bis zum Ende gehen soll */
-  margin-bottom: var(--default-body-bottom-margin);
-}
-.grow-wrap::after {
-  /* Note the weird space! Needed to preventy jumpy behavior */
-  content: attr(data-replicated-value) " ";
-  /* This is how textarea text behaves */
-  white-space: pre-wrap;
-  /* Hidden from view, clicks, and screen readers */
-  visibility: hidden;
-}
-.grow-wrap > textarea {
-  /* You could leave this, but after a user resizes, then it ruins the auto sizing */
-  resize: none;
-  /* Firefox shows scrollbar on growth, you can hide like this. */
-  overflow: hidden;
-}
-.grow-wrap > textarea,
-.grow-wrap::after {
-  /* Identical styling required!! */
-  color: white;
-  background-color: #555;
-  font: inherit;
-  font-size: inherit;
-  padding: 0.5rem;
-  margin-top: var(--default-top-padding);
-  border: 1px solid white;
-  outline: 1px solid white;
-  /* min-height: 44vh; */
-  /* Place on top of each other */
-  grid-area: 1 / 1 / 2 / 2;
-}
-
-textarea#input:focus {
+#input:focus {
   outline: 2px solid white;
 }
 
@@ -289,7 +251,7 @@ button:disabled, input:disabled, textarea:disabled {
   pointer-events: none;
 }
 
-div.disabled, p.disabled, label.disabled, #output.disabled {
+div.disabled, p.disabled, label.disabled, #input.disabled, #output.disabled {
   background-color: inherit;
   color: #AAAAAA;
   border-color: #AAAAAA;
@@ -330,7 +292,7 @@ div.download {
   align-items: baseline;
 }
 
-#output {
+#input, #output {
   margin-top: var(--default-top-padding);
   /* ersetzt den margin-bottom vom body
   da dieses Element bis zum Ende gehen soll */
@@ -381,9 +343,6 @@ th {
   .label-w-select {
     flex-direction: column;
   }
-  .grow-wrap {
-    /* grid-template-columns: 92vmin; */
-  }
 }
 
 /* iPhone portait only */
@@ -391,5 +350,4 @@ th {
   body {
     /* font-size: 4vmin; */
   }
-
 }
