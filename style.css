@@ -248,8 +248,7 @@ p.label {
 }
 
 textarea#input:focus {
-  outline: 3px solid white;
-  outline-offset: 2px;
+  outline: 2px solid white;
 }
 
 button, input {
