@@ -223,8 +223,16 @@ input[type=checkbox]:focus {
 
 button, input, select {
   border: 2px solid white;
+}
+
+button, input {
   -webkit-border-radius: 5px;
   border-radius: 5px;
+}
+
+select {
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
 }
 
 input[type="file"] {
