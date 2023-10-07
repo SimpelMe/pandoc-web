@@ -206,6 +206,14 @@ input[type="file"] {
   background-color: inherit;
 }
 
+input::file-selector-button {
+  color: black;
+}
+
+input:disabled::file-selector-button {
+  color: #AAAAAA;
+}
+
 button:disabled, input:disabled, textarea:disabled,
 div.disabled, p.disabled, label.disabled,
 #input.disabled, #output.disabled,
@@ -247,6 +255,12 @@ select {
 
 input[type="file"] {
   border: 0;
+}
+
+/* iOS */
+input::file-selector-button {
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
 }
 
 #input, #output {
