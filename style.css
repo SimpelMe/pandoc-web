@@ -292,7 +292,8 @@ details summary {
 
 summary {
   /* just to avoid a big white border on focus */
-  width: 8ch;
+  /* make it a bit wider as iOS otherwise would make a new line after the marker */
+  width: 10ch;
 }
 
 p.label {
