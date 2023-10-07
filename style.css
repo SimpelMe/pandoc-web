@@ -1,8 +1,8 @@
 :root {
   --default-top-padding: 1.5em;
   --default-body-bottom-margin: 2vmin;
-  --default-min-font-size-px: 14px;
-  --default-min-font-size: 14;
+  --default-min-font-size-px: 12px;
+  --default-min-font-size: 12;
   --default-max-font-size-px: 18px;
   --default-max-font-size: 18;
 }
@@ -21,6 +21,7 @@ html {
 
 body {
   height: calc(100vh - 3vmin); /* minus margin-top - margin bottom is 0 */
+  font-size: inherit;
   font-family: helvetica, Arial, sans-serif;
   background-color: #555;
   color: white;
@@ -488,11 +489,21 @@ main {
   .two-column {
     grid-template-columns: minmax(0, 1fr);
   }
-  #selects > label {
-    display: block;
-  }
   div.download {
     /* padding is only needed if it must align to file input when side by side */
     padding-top: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  #checkboxes > label, #selects > label {
+    display: grid;
+  }
+}
+
+/* iPhone 13 mini portrait */
+@media (max-width: 375px) {
+  .left.label-w-select, .right.label-w-select {
+    flex-direction: column;
   }
 }
