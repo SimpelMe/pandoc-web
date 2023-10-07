@@ -217,15 +217,14 @@ details[open] > #details {
 }
 
 input[type=checkbox]:focus {
-  outline: 1.2px solid white;
+  /* reduce default offset as it seems a very big gap */
   outline-offset: 1px;
 }
 
 button, input, select {
-  border: 2px solid;
+  border: 2px solid white;
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  border-color: white;
 }
 
 input[type="file"] {
