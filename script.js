@@ -1,5 +1,8 @@
 const urlHost = window.location.href.substr(0, window.location.href.lastIndexOf("/"));
 
+// needed for check whether input has changed since last convert
+let inputTextByConvert = "";
+
 // the following object keeps the file extension for the select option values of 'from' and 'to'
 // access: value = extension["key"]
 const extension = {"asciidoc_legacy": "asciidoc", "asciidoc": "asciidoc", "beamer": "tex", "biblatex": "bib", "bibtex": "bibtex", "chunkedhtml": "zip", "commonmark_x": "md", "commonmark": "md", "context": "tex", "creole": "txt", "csljson": "json", "csv": "csv", "docbook5": "xml", "docbook": "xml", "docx": "docx", "dokuwiki": "txt", "dzslides": "html", "endnotexml": "xml", "epub2": "epub", "epub3": "epub", "epub": "epub", "fb2": "fb2", "gfm": "md", "haddock": "md", "html4": "html", "html5": "html", "html": "html", "icml": "icml", "ipynb": "ipynb", "jats_archiving": "xml", "jats_articleauthoring": "xml", "jats_publishing": "xml", "jats": "xml", "jira": "txt", "json": "json", "latex": "tex", "man": "man", "markdown_mmd": "md", "markdown_phpextra": "md", "markdown_strict": "md", "markdown": "md", "markua": "md", "mediawiki": "txt", "ms": "ms", "muse": "txt", "native": "hs", "odt": "odt", "opendocument": "odf", "opml": "xml", "org": "txt", "pdf": "pdf", "plain": "txt", "pptx": "pptx", "preview": "html", "revealjs": "html", "ris": "ris", "rst": "rst", "rtf": "rtf", "s5": "html", "slideous": "html", "slidy": "html", "t2t": "t2t", "tei": "tei", "texinfo": "texi", "textile": "textile", "tikiwiki": "txt", "tsv": "tsv", "twiki": "txt", "typst": "typ", "vimwiki": "txt", "xwiki": "txt", "zimwiki": "txt"};
@@ -53,6 +56,8 @@ function pandoc(alert) {
   }
   var to  = document.getElementById('to').value;
   var input  = document.getElementById('input').innerText;
+  // update global remembrance of input since last convert
+  inputTextByConvert = input;
   if (isEmpty(input) && !useInputFile) {
     if (alert === true) {
       pushDialog("Error: Nothing to convert.\n\nYou must either write something into the 'Input field' or select a file as input in the 'Options'.", "error");
@@ -153,7 +158,7 @@ function setMainButtonsAppearance() {
   if (useInputFile) {
     inputFile = document.getElementById('inputfile').files[0];
   }
-  var input  = document.getElementById('input').innerText;
+  const input  = document.getElementById('input').innerText;
   const output = document.getElementById('output');
 
   // convert button setting
@@ -164,6 +169,8 @@ function setMainButtonsAppearance() {
   } else if (isEmpty(input) && !useInputFile) {
     convertButton.setAttribute('disabled', 'disabled');
     output.innerText = "";
+  } else if (input === inputTextByConvert) {
+    convertButton.setAttribute('disabled', 'disabled');
   } else {
     convertButton.removeAttribute('disabled');
   }
@@ -183,11 +190,13 @@ function setMainButtonsAppearance() {
 function checkInputFile() {
   if (document.getElementById('cb-inputfile').checked === true) {
     document.getElementById('inputfile').removeAttribute("disabled");
+    document.getElementById('input').removeAttribute("contenteditable");
     document.getElementById('input').classList.add("disabled");
     document.getElementById('label-inputfield').classList.add("disabled");
     document.getElementById('output').innerText = "";
   } else {
     document.getElementById('inputfile').setAttribute("disabled", "disabled");
+    document.getElementById('input').setAttribute("contenteditable", "true");
     document.getElementById('input').classList.remove("disabled");
     document.getElementById('label-inputfield').classList.remove("disabled");
   }

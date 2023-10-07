@@ -189,7 +189,7 @@
               <input type="checkbox" id="cb-inputfile" name="cb-inputfile" onchange="checkInputFile(),pandoc()">Use file as input</label>
             <form id="inputfile-form" class="file" action="/input" method="post" enctype="multipart/form-data">
               <label for="inputfile">File
-                <input id="inputfile" name="file" type="file" /></label>
+                <input id="inputfile" name="file" type="file" onchange="checkInputFile(),pandoc()"/></label>
             </form>
           </div>
           <div class="right">
@@ -210,7 +210,7 @@
             <button type="button" disabled id="convert" name="convert" title="Convert input.
 You can use this shortcut:
 OSX: [ Ctrl ] + [ Opt ] + [ p ]
-WIN: [ Alt ] + [ p ]" accesskey="p" onclick="pandoc(true)">Convert [p]</button>
+WIN: [ Alt ] + [ p ]" accesskey="p" onclick="pandoc(true)">Convert input field [p]</button>
           </div>
           <div id="input" role="textbox" aria-multiline="true" aria-labelledby="label-inputfield" contenteditable="true"></div>
         </div>
