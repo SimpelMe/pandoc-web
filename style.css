@@ -1,6 +1,10 @@
 :root {
   --default-top-padding: 1.5em;
   --default-body-bottom-margin: 2vmin;
+  --default-min-font-size-px: 14px;
+  --default-min-font-size: 14;
+  --default-max-font-size-px: 18px;
+  --default-max-font-size: 18;
 }
 
 /* *****************************************************************************
@@ -9,10 +13,15 @@
 
 ***************************************************************************** */
 
+html {
+  /* see: https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/#comment-1769978 - comment by MaxDesign */
+  font-size:calc(var(--default-min-font-size-px) + (var(--default-max-font-size) - var(--default-min-font-size)) * ((100vw - 360px) / 1560));
+  font-size: clamp(var(--default-min-font-size-px), calc(var(--default-min-font-size-px) + (var(--default-max-font-size) - var(--default-min-font-size)) * ((100vw - 360px) / 1560)), var(--default-max-font-size-px));
+}
+
 body {
   height: calc(100vh - 3vmin); /* minus margin-top - margin bottom is 0 */
   font-family: helvetica, Arial, sans-serif;
-  font-size: 2vmin;
   background-color: #555;
   color: white;
   /* margin-bottom is calculated here to 0
@@ -390,7 +399,8 @@ p.label {
   instead of "grid-template-columns: 1fr 1fr;" <-- buggy */
   grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: 3vmin;
-  row-gap: 2vmin;
+  /* that is only working if #input and #output are among each other */
+  row-gap: var(--default-top-padding);
 }
 
 #checkboxes, #selects {
@@ -475,41 +485,14 @@ main {
 
 /* from here two columns side by side are not working */
 @media (max-width: 850px) {
-  body {
-    font-size: 4vmin;
-  }
   .two-column {
     grid-template-columns: minmax(0, 1fr);
   }
   #selects > label {
     display: block;
   }
-}
-
-/* iPad portait */
-@media (max-width: 768px) {
-  body {
-    /* font-size: 3vmin; */
-  }
-
-  button, input {
-    padding-top: 2vmin;
-  }
-}
-
-/* iPhone landscape only */
-@media (max-width: 568px) {
-  body {
-    /* font-size: 4vmin; */
-  }
-  .label-w-select {
-    flex-direction: column;
-  }
-}
-
-/* iPhone portait only */
-@media (max-width: 320px) {
-  body {
-    /* font-size: 4vmin; */
+  div.download {
+    /* padding is only needed if it must align to file input when side by side */
+    padding-top: 0;
   }
 }
