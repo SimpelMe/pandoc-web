@@ -279,6 +279,20 @@ define('PATH', '/Users/me/.pandoc/bin/:/Users/me/context/tex/texmf-osx-arm64/bin
 
 It sets the value of the servers environment variable `PATH`.
 
+Then open `index.php` and remove two lines. Because those embed my personal website header and you don't have this code.
+
+First remove in `<head>`:
+
+```
+<?php include dirname($_SERVER['DOCUMENT_ROOT']) . "/simpel.cc/php/head.php"; ?>
+```
+
+Second remove in `<header>`:
+
+```
+<?php include dirname($_SERVER['DOCUMENT_ROOT']) . "/simpel.cc/php/header.php"; ?>
+```
+
 ## Links
 
 - [Pandoc](https://pandoc.org)
