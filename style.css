@@ -314,6 +314,7 @@ div.disabled, p.disabled, label.disabled,
 
 ***************************************************************************** */
 
+/* this pre wraps the whole html #output if html is selected */
 pre {
   text-wrap: pretty;
   word-break: break-word;
@@ -321,6 +322,12 @@ pre {
   font-family: inherit;
 }
 
+/* this is code in #output if preview is selected */
+pre:has(code) {
+  margin-block-start: 1em;
+}
+
+/* default is center and looks ugly */
 th {
   text-align: left;
 }
