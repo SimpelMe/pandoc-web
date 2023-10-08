@@ -229,7 +229,7 @@ async function copyOutput() {
   var element = document.getElementById('output');
   const html = serializeElement(element);
   const htmlBlob = new Blob([html], { type: 'text/html' });
-  const text = element.textContent ?? '';
+  const text = element.innerText ?? '';
   const textBlob = new Blob([text], { type: 'text/plain' });
   const clipboardItem = new ClipboardItem({
       [htmlBlob.type]: htmlBlob,
