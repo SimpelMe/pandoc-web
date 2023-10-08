@@ -1,0 +1,2 @@
+This file is to create the output folder. Empty folders are ignored by git.
+

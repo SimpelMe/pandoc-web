@@ -3,5 +3,7 @@ localConfig.php
 DEBUG
 _DEBUG
 input/*
+!input/dummy.txt
 output/*
+!output/dummy.txt
 
