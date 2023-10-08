@@ -26,6 +26,7 @@ swiss-army knife for converting files.
 * [Installation](#installation)
   * [Prerequisites](#prerequisites)
   * [Install Pandoc Web](#install-pandoc-web)
+  * [Debugging](#debugging)
 * [Links](#links)
 
 ## Manual
@@ -292,6 +293,10 @@ Second remove in `<header>`:
 ```
 <?php include dirname($_SERVER['DOCUMENT_ROOT']) . "/simpel.cc/php/header.php"; ?>
 ```
+
+### Debugging
+
+You can get debugging infos in the output field from your servers actions. Place a file called `DEBUG` on the server.
 
 ## Links
 
