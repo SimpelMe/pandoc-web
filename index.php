@@ -227,12 +227,6 @@ WIN: [ Alt ] + [ c ]" accesskey="c" onclick="copyOutput()">Copy output field [c]
     </div>
   </main>
   <script>
-    // Error messages dialog
-    const dialog = document.getElementById("dialog");
-    const closeButtonDialog = document.querySelector("dialog button");
-    closeButtonDialog.addEventListener("click", () => {
-      dialog.close();
-    });
     // disable form for input file
     checkInputFile();
     checkOutputFile();
