@@ -43,6 +43,9 @@ body {
   /* disable because of my personal header */
   /* min-height: 100vh; */
   text-rendering: optimizeSpeed;
+}
+
+main {
   line-height: 1.5;
 }
 
