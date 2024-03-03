@@ -1,75 +1,13 @@
-:root {
-  --default-top-padding: 1.5em;
-  --default-body-bottom-margin: 2vmin;
-  --default-min-font-size-px: 12px;
-  --default-min-font-size: 12;
-  --default-max-font-size-px: 18px;
-  --default-max-font-size: 18;
-}
-
-/* *****************************************************************************
-
-  personal header styling
-
-***************************************************************************** */
-
-html {
-  /* see: https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/#comment-1769978 - comment by MaxDesign */
-  font-size:calc(var(--default-min-font-size-px) + (var(--default-max-font-size) - var(--default-min-font-size)) * ((100vw - 360px) / 1560));
-  font-size: clamp(var(--default-min-font-size-px), calc(var(--default-min-font-size-px) + (var(--default-max-font-size) - var(--default-min-font-size)) * ((100vw - 360px) / 1560)), var(--default-max-font-size-px));
-}
-
 body {
-  height: calc(100vh - 3vmin); /* minus margin-top - margin bottom is 0 */
-  font-size: inherit;
-  font-family: helvetica, Arial, sans-serif;
-  background-color: #555;
-  color: white;
-  /* margin-bottom is calculated here to 0
-  this margin must be set by the lowest elements,
-  because they should go to the very bottom */
-  margin: 3vmin 4vmin calc(var(--default-body-bottom-margin) - var(--default-body-bottom-margin)) 4vmin;
-}
-
-*:focus {
-  outline: 2px solid white;
-  outline-offset: 2px;
-}
-
-a {
-  color: #ffffff;
-}
-
-header a {
-  text-decoration: none;
-}
-
-/* kind of disabled link - text-decoration will be none automatically */
-a:not([href]) {
-  color: #AAAAAA;
+  font-size: 2em;
 }
 
 header {
   margin-bottom: 1.5em;
 }
 
-nav {
-  display: flex;
-  align-items: center;
-  column-gap: 0.7em;
-}
-
-h1 {
-  font-size: 1.5em;
-  margin: 0;
-}
-
-#github {
-  margin-left: auto;
-}
-
-#github-cat {
-  height: 1.5em;
+main {
+  font-size: 0.75em;
 }
 
 /* *****************************************************************************
@@ -495,6 +433,10 @@ main {
   height: 100%;
 }
 
+#input {
+  min-height: calc(100vh - 6vmin - 15.5em);
+}
+
 #input, #output {
   flex-grow: 1;
 }
@@ -507,9 +449,12 @@ main {
 ***************************************************************************** */
 
 /* from here two columns side by side are not working */
-@media (max-width: 850px) {
+@media (max-width: 1170px) {
   .two-column {
     grid-template-columns: minmax(0, 1fr);
+  }
+  #input {
+      height: calc(100vh - 6vmin - 25.5em);
   }
   div.download {
     /* padding is only needed if it must align to file input when side by side */
@@ -517,14 +462,14 @@ main {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 710px) {
   #checkboxes > label, #selects > label {
     display: grid;
   }
 }
 
 /* iPhone 13 mini portrait */
-@media (max-width: 375px) {
+@media (max-width: 490px) {
   .left.label-w-select, .right.label-w-select {
     flex-direction: column;
   }

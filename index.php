@@ -3,8 +3,8 @@
 
 <head>
   <?php include dirname($_SERVER['DOCUMENT_ROOT']) . "/simpel.cc/php/head.php"; ?>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" charset="utf-8"></script>
+  <link rel="stylesheet" href="style.min.css">
+  <script src="script.min.js" charset="utf-8"></script>
   <?php include 'example.php'; ?>
   <script>
     const example = `<?php echo $example ?>`;
