@@ -17,9 +17,8 @@
   </header>
 
   <main>
-    <dialog id="dialog">
+    <dialog id="dialog" onclick="dialog.close()">
       <p id="dialogText">Message here</p>
-      <button onclick="dialog.close()">Close</button>
     </dialog>
     <div class="first-in-main two-column">
       <div class="left label-w-select">
