@@ -18,7 +18,7 @@
 
     // give input file a name that shouldn't collide with other users
     $timestamp = microtime(true);
-    if ($_POST['useInputFile'] == "true") {
+    if ($_POST['useInputFile'] == "true" && ctype_alnum($_POST['inputFileExtension'])) {
       $inputFile = 'input/input' . $timestamp . '.' . $_POST['inputFileExtension'];
       move_uploaded_file($_FILES['inputFile']['tmp_name'], $inputFile);
     } else {
@@ -43,12 +43,16 @@
 
     // Selects
     // text wrapping
-    $command .= ' --wrap=' . $_POST['wrap'];
+    if (ctype_alnum($_POST['wrap'])) {
+      $command .= ' --wrap=' . $_POST['wrap'];
+    }
     // highlight styling
     if ($_POST['highlightStyle'] == "none") {
       $command  .= ' --no-highlight';
     } else {
-      $command .= ' --highlight-style=' . $_POST['highlightStyle'];
+      if (ctype_alnum($_POST['highlightStyle'])) {
+        $command .= ' --highlight-style=' . $_POST['highlightStyle'];
+      }
       // to see the highlighting in preview mode standalone is needed
       if ($_POST['to'] == "preview" && $_POST['standalone'] == "false") {$command .= ' --standalone';}
     }
@@ -75,7 +79,10 @@
 
     $command .= ' --embed-resources=true';
     // Input format
-    $command .= ' --from=' . $_POST['from'];
+    $aValidChars = array('-', '_');
+    if(!ctype_alnum(str_replace($aValidChars, '', $_POST['from']))) {
+      $command .= ' --from=' . $_POST['from'];
+    }
     // Output format
     // option 'preview' should be rendered in the gui so use HTML
     if ($_POST['to'] == "preview") {
@@ -87,10 +94,12 @@
       // pdf is only working in standalone mode
       if ($_POST['standalone'] == "false") {$command .= ' --standalone';}
     } else {
-      $command .= ' --to=' . $_POST['to'];
+      if(!ctype_alnum(str_replace($aValidChars, '', $_POST['to']))) {
+        $command .= ' --to=' . $_POST['to'];
+      }
     }
     // set output file if asked for
-    if ($_POST['useOutputFile'] == "true") {
+    if ($_POST['useOutputFile'] == "true" && ctype_alnum($_POST['outputFileExtension'])) {
       $command .= ' -o output/output' . $timestamp . '.' . $_POST['outputFileExtension'];
     }
     // always use a file instead a string from stdin (because of security and special characters like ')
@@ -126,8 +135,10 @@
       echo "$return";
     } else {
       // return the file binary
-      readfile('output/output' . $timestamp . '.' . $_POST['outputFileExtension']);
-      unlink('output/output' . $timestamp . '.' . $_POST['outputFileExtension']);
+      if (ctype_alnum($_POST['outputFileExtension'])) {
+        readfile('output/output' . $timestamp . '.' . $_POST['outputFileExtension']);
+        unlink('output/output' . $timestamp . '.' . $_POST['outputFileExtension']);
+      }
     }
   }
 ?>
